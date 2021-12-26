@@ -1,0 +1,29 @@
+<ul class="menu">
+    <li>
+        <a href="{% url 'index' %}">
+            на сайт
+        </a>
+    </li>
+    <li>
+        <a href="{% url 'adminapp:user_list' %}"
+           class="{% if 'user' in request.resolver_match.url_name %}active{% endif %}">пользователи</a>
+    </li>
+    <li>
+        <a href="{% url 'adminapp:category_list' %}"
+           class="{% if 'category' in request.resolver_match.url_name %}active{% endif %}">
+            категории
+            {% if category %}
+                :<span>{{ category.name }}</span>
+            {% endif %}
+        </a>
+    </li>
+    {% if user.is_authenticated %}
+        <li><a href="{% url 'auth:logout' %}">Выйти</a></li>
+    {% endif %}
+    <a href="{% url 'basket:basket' %}" class="basket">
+        {% if basket %}
+            <span>{{ basket.0.total_quantity }} шт.</span>
+            <span>{{ basket.0.total_cost }} руб.</span>
+        {% endif %}
+    </a>
+</ul>

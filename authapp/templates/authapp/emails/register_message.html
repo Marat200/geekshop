@@ -1,0 +1,8 @@
+{% extends 'authapp/base.html' %}
+{% load static %}
+
+{% block content %}
+    Your activation link
+    <hr>
+    <a href="{% url 'full_link' %}">Activate</a>
+{% endblock %}

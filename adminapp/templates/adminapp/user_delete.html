@@ -1,0 +1,12 @@
+{% extends 'adminapp/base.html' %}
+
+{% block content %}
+    <p class="">
+        Уверены, что хотите <span style="color: #761c19; font-weight: bolder;">полностью удалить</span> пользователя {{ object.get_full_name }}?
+    </p>
+    <form method="POST" style="margin-bottom: 10px;">
+        {% csrf_token %}
+        <input type="submit" value="Уверен" class="btn btn-danger">
+    </form>
+    <a href="{% url 'adminapp:user_list' %}" class="btn btn-success">Нет</a>
+{% endblock %}

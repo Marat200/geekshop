@@ -1,0 +1,70 @@
+{% extends 'adminapp/base.html' %}
+{% load static %}
+{% load my_tags %}
+
+{% block content %}
+    <div class="product_read">
+        <div class="product_name">
+            Продукт<strong>{{ object.category.name|title }} / {{ object.name|title }}</strong>
+        </div>
+        {% if not object.is_active %}
+            <p style="color: #eea236; font-weight: bold">Продукт деактивирован</p>
+        {% endif %}
+        <img src="{{ object.image|media_for_products }}">
+        <div class="summary">
+            <b>цена</b>
+            <p>{{ object.price }} руб</p>
+            <b>количество</b>
+            <p>{{ object.quantity }}</p>
+            <b>в каталоге</b>
+            <p>{% if object.is_active %}да{% else %}нет{% endif %}</p>
+            <p>
+                <button>
+                    <a href={% url 'adminapp:product_update' object.pk %}>редактировать</a>
+                </button>
+            </p>
+            <p>
+                {% if object.is_active %}
+                    <button class="btn btn-warning">
+
+                        <a href={% url 'adminapp:product_deactivate' object.pk %}>
+                            деактивировать
+                        </a>
+                    </button>
+                {% elif not object.is_active %}
+                    <button class="btn btn-success">
+
+                        <a href={% url 'adminapp:product_deactivate' object.pk %}>
+                            активировать
+                        </a>
+                    </button>
+                {% endif %}
+
+            </p>
+            <p>
+                <button>
+                    <a href={% url 'adminapp:product_list' object.category.pk %}>назад</a>
+                </button>
+            </p>
+        </div>
+        <div class="product_desc">
+            <b>краткая информация</b>
+            <p>
+                {{ object.short_desc }}
+            </p>
+            <br>
+            <br>
+            <b>подробная информация</b>
+            <p>
+                {{ object.description }}
+            </p>
+        </div>
+        {% if not object.is_active %}
+            <p>
+                <button class="btn btn-danger">
+                    <a href={% url 'adminapp:product_delete' object.pk %}>удалить</a>
+                </button>
+            </p>
+        {% endif %}
+    </div>
+{% endblock %}

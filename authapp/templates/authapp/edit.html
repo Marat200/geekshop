@@ -1,0 +1,14 @@
+{% extends 'authapp/base.html' %}
+{% load static %}
+
+{% block content %}
+    {% if user.avatar|length > 0 %}
+    <img src="/media/{{ user.avatar }}" alt="{{ user.first_name | default:user.username }}'s avatar">
+    {% endif %}
+    <form class="form-horizontal" action="{% url 'auth:edit' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ edit_form.as_p }}
+        {{ edit_profile_form.as_p }}
+        <input type="submit" class="btn btn-primary" value="Сохранить">
+    </form>
+{% endblock %}

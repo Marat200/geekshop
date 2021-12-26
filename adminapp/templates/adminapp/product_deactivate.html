@@ -1,0 +1,18 @@
+{% extends 'adminapp/base.html' %}
+
+{% block content %}
+    <p class="">
+        Уверены, что хотите
+        {% if object.is_active %}
+            деактивировать
+        {% else %}
+            восстановить
+        {% endif %}
+        продукт {{ object.name }} из категории {{ object.category.name }}?
+    </p>
+    <form method="POST" style="margin-bottom: 10px;">
+        {% csrf_token %}
+        <input type="submit" value="Уверен" class="btn btn-danger">
+    </form>
+    <a href="{% url 'adminapp:product_list' object.category.pk %}" class="btn btn-success">Нет</a>
+{% endblock %}
